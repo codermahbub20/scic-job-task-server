@@ -35,7 +35,7 @@ async function run() {
 
 
         const usersCollection = client.db("scic1").collection("users")
-
+        const taskCollection = client.db("scic1").collection("task")
 
 
 
@@ -74,8 +74,17 @@ async function run() {
 
         // user api code end for here
 
-        
+        //  Task Related Api here
+        app.post('/task', async (req, res) => {
+            const taskData = req.body;
+            const result = await taskCollection.insertOne(taskData)
+            res.send(result)
+        })
 
+        app.get('/task', async (req, res) => {
+            const result = await taskCollection.find().toArray();
+            res.send(result)
+        })
 
 
 
